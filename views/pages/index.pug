@@ -1,0 +1,20 @@
+extends ../template
+
+block content
+  #map
+  
+  script(id='overlayTemplate' type='template')
+    .overlay
+      .overlay__contents
+        .overlay__header
+          .overlay__title 
+          .overlay__close x
+        .overlay__desc
+        form(action="" id='form').overlay__form
+          .overlay__form-title Ваш отзыв
+          input(type="text" placeholder='Ваше имя' id='name' required).overlay__form-input
+          input(type="text" placeholder='Укажите место' id='place' required).overlay__form-input
+          textarea(name="", cols="30", rows="10" placeholder='Поделитесь впечатлениями' id='text' required).overlay__form-textarea
+          label.overlay__footer(for="send-btn")
+            button.visuallyhidden(type='submit' id='send-btn')
+            .overlay__btn Добавить

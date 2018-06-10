@@ -1,0 +1,32 @@
+.ballon_header {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ballon_body {
+  flex: 1;
+}
+
+.ballon_body a {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.ballon_footer p {
+  font-size: 12px;
+  text-align: right;
+  color: #9f9f9f;
+  margin-bottom: 5px;
+}
+
+.ymaps-2-1-64-b-cluster-carousel__content-item {
+  height: 100%;
+}
+
+
+.ymaps-2-1-64-b-cluster-carousel__content-item ymaps {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
