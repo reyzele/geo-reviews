@@ -4,6 +4,7 @@ const CommentsOnPlace = require("../models/comments");
 const router = express.Router();
 
 router.post("/", (req, res) => {
+  console.log(req.body);
   let address = req.body.address,
     coords = req.body.coords,
     name = req.body.name,
@@ -20,7 +21,9 @@ router.post("/", (req, res) => {
       date: new Date().toISOString()
     },
     (err, comm) => {
-      console.log(err);
+      if (err) {
+        console.log(err);
+      }
       res.send(comm);
     }
   );

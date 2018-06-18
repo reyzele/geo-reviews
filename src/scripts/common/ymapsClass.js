@@ -17,16 +17,17 @@ export default class {
       clusterBalloonPanelMaxMapArea: 0,
       clusterBalloonContentLayoutWidth: 250,
       clusterBalloonContentLayoutHeight: 130,
-      clusterBalloonPagerSize: 5
+      clusterBalloonPagerSize: 5,
+      hideIconOnBalloonOpen: false,
+      balloonOffset: [0, -25]
     });
   }
 
   createPlacemark(coords, data) {
     return new ymaps.Placemark(coords.split(","), data, {
-      preset: "islands#violetIcon",
-      balloonPanelMaxMapArea: 0,
-      openEmptyBalloon: true,
-      draggable: false
+      balloonShadow: false,
+      hideIconOnBalloonOpen: true,
+      preset: 'islands#violetIcon',
     });
   }
 
@@ -38,6 +39,7 @@ export default class {
 
   getCommentsOnAddress(address) {
     const OverlayText = document.querySelector(".overlay__desc");
+
     fetch("/get/" + encodeURIComponent(address), {
       method: "GET",
       headers: {
@@ -57,6 +59,7 @@ export default class {
 
   addAllPoints() {
     let geoObjects = [];
+
     this.clasterer.removeAll();
     fetch("/get/all", {
       method: "GET",
@@ -82,8 +85,10 @@ export default class {
             balloonContentFooter:
               "<p>" + moment(point.date).format('DD.MM.YYYY hh:mm:ss') + "</p>"
           });
+
           geoObjects.push(newPlacemark);
         });
+
         return geoObjects;
       })
       .then(geoObjects => {

@@ -1,8 +1,7 @@
 import ymapsClass from "./common/ymapsClass.js";
 
-
 ymaps.ready(() => {
-  var myPlacemark;
+  let overlay_ = false;
   let myMap = new ymaps.Map(
     "map",
     {
@@ -21,28 +20,44 @@ ymaps.ready(() => {
     ymap.clasterer.balloon.close();
     ymap.map.balloon.close();
 
-    var coords = e.get('coords');
+    const coords = e.get('coords');
 
     overlay.open();
-    overlay.setContent('Поиск...')
-    document.querySelector(".overlay__desc").innerHTML = 'Отзывов пока нет...'
+    overlay.setContent('Поиск...');
+    document.querySelector('.overlay__desc').innerHTML = 'Отзывов пока нет...';
 
     ymap.getAddress(coords).then(res => {
       overlay.setContent(res, coords);
-    });
+    })
   });
 
-  myMap.events.add("balloonopen", function (e) {
+  ymap.clasterer.events.add("balloonopen", function (e) {
     e.preventDefault();
     const overlayElement = document.querySelector('.overlay');
 
     if (overlayElement) {
       overlay.close();
     }
-  });
 
-  ymap.clasterer.events.add("balloonopen", function (e) {
+    if (e.originalEvent.type !== "balloonopen") {
+      let balloon = document.querySelector('.ymaps-2-1-64-balloon');
+      let overlay = document.querySelector('#open-popup');
+      let coords = overlay.dataset.coords.split(",");
+      let promise = new Promise((resolve) => {
+        if (balloon) {
+          resolve();
+        }
+      })
 
+      promise.then(() => {
+        balloon.style.top = "-9999px";
+        openOverlay(coords);
+        overlay_ = true;
+      })
+    } else {
+
+      return 0;
+    }
   });
 
   function openOverlay(coords) {
@@ -56,16 +71,9 @@ ymaps.ready(() => {
       overlay.setContent(res);
       ymap.getCommentsOnAddress(res);
     });
-
   }
-
-  myMap.events.add("balloonopen", function (e) {
-  });
 
   ymap.addAllPoints();
-  function closeButton() {
-    document.querySelector(".popup").classList.toggle("hide");
-  }
 
   // Добавление комментарий
   function addComment() {
@@ -118,15 +126,25 @@ ymaps.ready(() => {
 
     document.addEventListener('click', e => {
       e.preventDefault();
+      let promise = new Promise((resolve) => {
+        if (overlay_) {
+          resolve();
+        } else {
+          setTimeout(() => {
+            resolve();
+          }, 300);
+        }
+      })
 
       if (e.target.id === 'open-popup') {
         openOverlay(e.target.dataset.coords.split(","));
       } else if (e.target.tagName !== 'YMAPS') {
-        
+
         return 0;
       }
-
-      setPosition(e);
+      promise.then(() => {
+        setPosition(e);
+      })
     })
 
     function setPosition(elem) {
@@ -143,8 +161,7 @@ ymaps.ready(() => {
 
       overlayElement.style.top = posY + 'px';
       overlayElement.style.left = posX + 'px';
-    }
-
+    };
 
     closeElement.addEventListener("click", () => {
       document.body.removeChild(overlayElement);
@@ -159,10 +176,14 @@ ymaps.ready(() => {
         closeElement.click();
       },
       setContent(content, coords) {
+        if (content === undefined || content === '') {
+          contentElement.innerHTML = 'Неизвестное место...';
+        } else {
+          contentElement.innerHTML = content;
+        }
         if (coords !== undefined) {
           contentElement.dataset.coords = coords;
         }
-        contentElement.innerHTML = content;
       }
     };
   }
