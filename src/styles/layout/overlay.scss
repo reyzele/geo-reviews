@@ -1,6 +1,6 @@
 .overlay {
-  font-family: 'Fira Sans', sans-serif;
-  width: 380px;
+  font-family: "Fira Sans", sans-serif;
+  width: 340px;
   position: absolute;
   background: #fff;
   overflow: hidden;
@@ -12,6 +12,7 @@
 
 .overlay__header {
   display: flex;
+  align-items: center;
   flex-direction: row;
   justify-content: space-between;
   color: #fff;
@@ -19,19 +20,20 @@
   background-color: $orange;
 }
 
-.overlay__title  {
+.overlay__title {
   font-size: 12px;
   font-weight: 300;
 }
 
 .overlay__close {
+  font-size: 16px;
   cursor: pointer;
 }
 
 .overlay__desc {
-  height: 146px;
+  height: 160px;
   overflow: auto;
-  padding: 10px;
+  margin: 10px;
 }
 
 .overlay__form {
@@ -52,7 +54,8 @@
 .overlay__form-textarea {
   border-color: #c4c4c4;
   border-radius: 10px;
-  height: 130px;
+  height: 100px;
+  margin-bottom: 0;
 }
 
 .overlay__footer {
@@ -71,7 +74,7 @@
   justify-content: center;
   align-items: center;
   padding: 8.5px 17.5px;
-  transition: .3s;
+  transition: 0.3s;
   cursor: pointer;
 
   &:hover {

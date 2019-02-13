@@ -1,4 +1,8 @@
 module.exports = {
   API_PORT: "3000",
-  MONGODB_URL: "mongodb://localhost/geo-rev"
+  db: {
+    host: "root:ltwkkjcm12@ds131765.mlab.com",
+    port: "31765",
+    name: "geo-review"
+  }
 };

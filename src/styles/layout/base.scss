@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500&subset=cyrillic');
-@import url('https://unpkg.com/@icon/font-awesome/font-awesome.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 *, *::before, *::after { 
   box-sizing: border-box; 
@@ -30,7 +30,7 @@ body {
 input, textarea {
   border-color: #c4c4c4;
   border-radius: 15px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   font-size: 15px;
   font-weight: 300;
   box-sizing: border-box;

@@ -10,7 +10,7 @@
 
 .ballon_body a {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .ballon_footer p {
@@ -20,13 +20,12 @@
   margin-bottom: 5px;
 }
 
-.ymaps-2-1-64-b-cluster-carousel__content-item {
+.ymaps-2-1-72-b-cluster-carousel__content-item_current_yes {
   height: 100%;
-}
-
-
-.ymaps-2-1-64-b-cluster-carousel__content-item ymaps {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  
+  ymaps {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 }

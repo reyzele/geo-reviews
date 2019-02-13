@@ -9,7 +9,6 @@ const webpack = require("webpack");
 const webpackConfig = require("./webpack.config.js");
 const moduleImporter = require("sass-module-importer");
 const del = require("del");
-const cssunit = require('gulp-css-unit');
 
 const SRC_DIR = "src";
 const DIST_DIR = "public/";
@@ -73,7 +72,7 @@ gulp.task("nodemon", done => {
 // dev сервер + livereload (встроенный)
 gulp.task(
   "server",
-  gulp.series("nodemon", done => {
+  gulp.series("nodemon", () => {
     browserSync.init({
       proxy: "http://localhost:3000",
       port: 8080,

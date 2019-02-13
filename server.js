@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 const config = require("./config");
@@ -8,9 +7,9 @@ const getComment = require("./api/routes/get");
 
 const app = express();
 app.locals.moment = require("moment");
-mongoose.Promise = Promise;
 
-mongoose.connect(config.MONGODB_URL, {  });
+require("./config/db");
+
 app.set("view engine", "pug");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -21,7 +20,7 @@ app.use("/get", getComment);
 
 app.get("/", function (req, res) {
   res.render(path.join(__dirname, "/views/pages/index"), {
-    title: "Geo Review"
+    title: "Geo Reviews"
   });
 });
 
