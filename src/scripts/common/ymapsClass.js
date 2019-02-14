@@ -1,4 +1,4 @@
-import { setPosition } from "./utils";
+import { setPosition, dragAndDrop } from "./utils";
 import moment from "moment";
 
 const template = document.querySelector("#overlayTemplate").innerHTML;
@@ -177,6 +177,8 @@ export default class {
         setPosition(e, overlayElement); // setPosition
       }
     });
+
+    overlayElement.addEventListener("mousedown", dragAndDrop(overlayElement));
 
     formElement.addEventListener("submit", this.addComment(overlayElement));
 

@@ -1,4 +1,5 @@
 import ymapsClass from "./common/ymapsClass.js";
+import { resizeHendler } from "./common/utils";
 
 ymaps.ready(() => { // eslint-disable-line
   const myMap = new ymaps.Map( // eslint-disable-line
@@ -14,6 +15,9 @@ ymaps.ready(() => { // eslint-disable-line
   );
   const ymap = new ymapsClass(myMap);
 
+  ymap.addAllPoints();
+
+  // event listeners
   myMap.events.add("click", function(e) {
     const coords = e.get("coords");
 
@@ -35,5 +39,5 @@ ymaps.ready(() => { // eslint-disable-line
     }
   });
 
-  ymap.addAllPoints();
+    window.addEventListener("resize", resizeHendler);
 });

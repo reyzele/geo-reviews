@@ -15,6 +15,7 @@ block content
           input(type="text" placeholder='Ваше имя' id='name' required).overlay__form-input
           input(type="text" placeholder='Укажите место' id='place' required).overlay__form-input
           textarea(name="", cols="30", rows="10" placeholder='Поделитесь впечатлениями' id='text' required).overlay__form-textarea
-          label.overlay__footer(for="send-btn")
-            button.visuallyhidden(type='submit' id='send-btn')
-            .overlay__btn Добавить
+          .overlay__footer(for="send-btn")
+            label(for="send-btn")
+              button.visuallyhidden(type='submit' id='send-btn')
+              .overlay__btn Добавить
