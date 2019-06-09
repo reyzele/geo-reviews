@@ -47,16 +47,23 @@ function resizeHendler() {
 }
 
 const dragAndDrop = element => e => {
-  const coords = getCoords(element);
-  const shiftX = e.pageX - coords.left;
-  const shiftY = e.pageY - coords.top;
+  const parent = e.target.parentNode;
 
-  document.onmousemove = e => {
-    element.style.left = e.pageX - shiftX + "px";
-    element.style.top = e.pageY - shiftY + "px";
-  };
+  if (
+    parent.classList.contains("overlay__contents") ||
+    e.target.classList.contains("overlay__footer")
+  ) {
+    const coords = getCoords(element);
+    const shiftX = e.pageX - coords.left;
+    const shiftY = e.pageY - coords.top;
 
-  element.onmouseup = () => (document.onmousemove = null);
+    document.onmousemove = e => {
+      element.style.left = e.pageX - shiftX + "px";
+      element.style.top = e.pageY - shiftY + "px";
+    };
+
+    element.onmouseup = () => (document.onmousemove = null);
+  }
 };
 
 function getCoords(elem) {

@@ -5,9 +5,10 @@ ymaps.ready(() => { // eslint-disable-line
   const myMap = new ymaps.Map( // eslint-disable-line
     "map",
     {
-      center: [55.76, 37.64], // Москва
-      zoom: 13,
-      controls: []
+      center: [31.523316, 34.602904], // Israel, Sderot
+      zoom: 16,
+      controls: [],
+      lang: 'IL'
     },
     {
       searchControlProvider: "yandex#search"

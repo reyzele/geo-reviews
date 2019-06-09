@@ -37,18 +37,19 @@
 }
 
 .overlay__form {
-  padding: 0 10px;
+  margin: 0 10px;
   display: flex;
   flex-direction: column;
+  border-top: 1px solid #f0f0f0;
 }
 
 .overlay__form-title {
-  border-top: 1px solid #f0f0f0;
   font-size: 16px;
   color: $orange;
   padding: 14px 0;
   font-weight: 500;
   text-transform: uppercase;
+  width: max-content;
 }
 
 .overlay__form-textarea {
