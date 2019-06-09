@@ -18,12 +18,28 @@ app.use(express.static(path.join(__dirname, "./public")));
 app.use("/add", addComment);
 app.use("/get", getComment);
 
-app.get("/", function (req, res) {
+app.get("/", function(req, res) {
   res.render(path.join(__dirname, "/views/pages/index"), {
     title: "Geo Reviews"
   });
 });
 
-app.listen(config.API_PORT, () =>
-  console.log(`Running on port: ${config.API_PORT}`)
-);
+var port = normalizePort(process.env.PORT || "3000");
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+app.listen(port, () => console.log(`Running on port: ${config.API_PORT}`));
