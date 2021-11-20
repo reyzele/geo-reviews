@@ -2,10 +2,11 @@
   font-family: "Fira Sans", sans-serif;
   width: 340px;
   position: absolute;
-  background: #fff;
+  background: $white;
   overflow: hidden;
   border-radius: 2%;
 }
+
 .overlay__content {
   width: 100%;
 }
@@ -15,7 +16,7 @@
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  color: #fff;
+  color: $white;
   padding: 10px;
   background-color: $orange;
 }
@@ -37,22 +38,23 @@
 }
 
 .overlay__form {
-  padding: 0 10px;
+  margin: 0 10px;
   display: flex;
   flex-direction: column;
+  border-top: 1px solid $gray-light;
 }
 
 .overlay__form-title {
-  border-top: 1px solid #f0f0f0;
   font-size: 16px;
   color: $orange;
   padding: 14px 0;
   font-weight: 500;
   text-transform: uppercase;
+  width: max-content;
 }
 
 .overlay__form-textarea {
-  border-color: #c4c4c4;
+  border-color: $gray-dark;
   border-radius: 10px;
   height: 100px;
   margin-bottom: 0;
@@ -66,7 +68,7 @@
 
 .overlay__btn {
   background-color: $orange;
-  color: #fff;
+  color: $white;
   border-radius: 6px;
   font-size: 12px;
   display: flex;

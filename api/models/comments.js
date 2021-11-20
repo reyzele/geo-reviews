@@ -3,16 +3,16 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema({
   coords: {
     type: String,
-    required: true
+    required: true,
   },
   address: {
     type: String,
-    lowercase: true
+    lowercase: true,
   },
   name: String,
   place: String,
   text: String,
-  date: Date
+  date: Date,
 });
 
 module.exports = mongoose.model("CommentsOnPlace", schema);

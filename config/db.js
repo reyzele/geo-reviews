@@ -4,17 +4,17 @@ const config = require("../config");
 mongoose.Promise = global.Promise;
 
 mongoose
-  .connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`)
-  .catch(e => {
+  .connect(
+    `mongodb+srv://${config.db.name}:${config.db.password}@cluster0.sdoe7.mongodb.net/${config.db.project}`
+  )
+  .catch((e) => {
     console.error(e);
     throw e;
   });
 
 mongoose.connection.on("connected", function () {
   console.log(
-    `Mongoose default connection open mongodb://${config.db.host}:${
-    config.db.port
-    }/${config.db.name}`
+    'Mongoose default connection open'
   );
 });
 

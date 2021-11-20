@@ -1,6 +1,4 @@
 const gulp = require("gulp");
-
-// плагины галпа, объявлять не нужно, используем как $gp.имяПлагина (без приставки gulp-)
 const $gp = require("gulp-load-plugins")();
 
 const browserSync = require("browser-sync").create();
@@ -14,7 +12,7 @@ const SRC_DIR = "src";
 const DIST_DIR = "public/";
 const ROOT_PATH = `./${DIST_DIR}`;
 
-// стили
+// styles
 gulp.task("styles", () => {
   return gulp
     .src(`${SRC_DIR}/styles/main.scss`)
@@ -39,12 +37,11 @@ gulp.task("styles", () => {
     .pipe(reload({ stream: true }));
 });
 
-// очистка
 gulp.task("clean", () => {
   return del(ROOT_PATH);
 });
 
-// собираем скрипты webpack
+// JS with webpack
 gulp.task("scripts", () => {
   return gulp
     .src(`${SRC_DIR}/scripts/main.js`)
@@ -54,7 +51,7 @@ gulp.task("scripts", () => {
     .pipe(reload({ stream: true }));
 });
 
-// сервер node.js
+// server
 gulp.task("nodemon", done => {
   let started = false;
   $gp
@@ -69,7 +66,7 @@ gulp.task("nodemon", done => {
     });
 });
 
-// dev сервер + livereload (встроенный)
+// dev server + livereload
 gulp.task(
   "server",
   gulp.series("nodemon", () => {
@@ -81,11 +78,11 @@ gulp.task(
   })
 );
 
-// галповский вотчер
+// gulp watcher
 gulp.task("watch", () => {
   gulp.watch(`${SRC_DIR}/styles/**/*.scss`, gulp.series("styles"));
   gulp.watch(`${SRC_DIR}/scripts/**/*.js`, gulp.series("scripts"));
-  gulp.watch(`views/pages/*`).on("change", reload);
+  gulp.watch(`views/**/*`).on("change", reload);
 });
 
 // GULP:RUN

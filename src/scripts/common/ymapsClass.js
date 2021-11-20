@@ -25,7 +25,7 @@ export default class {
       clusterBalloonContentLayoutHeight: 130,
       clusterBalloonPagerSize: 5,
       hideIconOnBalloonOpen: false,
-      balloonOffset: [0, -25]
+      balloonOffset: [0, -25],
     });
 
     this.overlay = this.createOverlay(template);
@@ -38,13 +38,13 @@ export default class {
       balloonShadow: false,
       hideIconOnBalloonOpen: false,
       preset: "islands#violetIcon",
-      hasBalloon: false
+      hasBalloon: false,
     });
   }
 
   getAddress(coords) {
     /* eslint-disable */
-    return new ymaps.geocode(coords).then(res =>
+    return new ymaps.geocode(coords).then((res) =>
       /* eslint-enable */
       res.geoObjects.get(0).getAddressLine()
     );
@@ -57,12 +57,12 @@ export default class {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
-      }
-    }).then(res => {
-      res.text().then(res => {
+        Accept: "application/json",
+      },
+    }).then((res) => {
+      res.text().then((res) => {
         if (res === '<ul id="commentsList"></ul>') {
-          OverlayText.innerHTML = "Отзывов пока нет...";
+          OverlayText.innerHTML = "No comments yet...";
         } else {
           OverlayText.innerHTML = res;
         }
@@ -71,20 +71,20 @@ export default class {
   }
 
   addAllPoints() {
-    let geoObjects = [];
+    const geoObjects = [];
 
     this.clasterer.removeAll();
     fetch("/get/all", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
-      }
+        Accept: "application/json",
+      },
     })
-      .then(res => res.json())
-      .then(res => {
-        res.forEach(point => {
-          let newPlacemark = this.createPlacemark(point.coords, {
+      .then((res) => res.json())
+      .then((res) => {
+        res.forEach((point) => {
+          const newPlacemark = this.createPlacemark(point.coords, {
             balloonContentHeader: point.place,
             balloonContentBody:
               '<a href="" id="open-popup" data-coords="' +
@@ -96,18 +96,18 @@ export default class {
               point.text +
               "</p>",
             balloonContentFooter:
-              "<p>" + moment(point.date).format("DD.MM.YYYY hh:mm:ss") + "</p>"
+              "<p>" + moment(point.date).format("DD.MM.YYYY hh:mm:ss") + "</p>",
           });
 
-          newPlacemark.events.add("click", e => {
+          newPlacemark.events.add("click", (e) => {
             const coords = e.originalEvent.target.geometry._coordinates;
-            this.overlay.open(e.originalEvent.domEvent);
-            this.overlay.setContent("Поиск...");
-            document.querySelector(".overlay__desc").textContent =
-              "Загружаю...";
-            this.openOverlay(coords); // openOverlay
 
-            this.getAddress(coords).then(res => {
+            this.overlay.open(e.originalEvent.domEvent);
+            this.overlay.setContent("Searching...");
+            document.querySelector(".overlay__desc").textContent = "Loading...";
+            this.openOverlay(coords);
+
+            this.getAddress(coords).then((res) => {
               this.overlay.setContent(res, coords);
             });
           });
@@ -117,14 +117,14 @@ export default class {
 
         return geoObjects;
       })
-      .then(geoObjects => {
+      .then((geoObjects) => {
         this.clasterer.add(geoObjects);
         this.map.geoObjects.add(this.clasterer);
       });
   }
 
   addComment(overlay) {
-    return e => {
+    return (e) => {
       e.preventDefault();
 
       const address = overlay.querySelector(".overlay__title");
@@ -142,12 +142,12 @@ export default class {
             coords,
             name,
             place,
-            text
+            text,
           }),
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json"
-          }
+            Accept: "application/json",
+          },
         }).then(() => {
           this.getCommentsOnAddress(address.innerText);
           this.addAllPoints();
@@ -168,12 +168,12 @@ export default class {
     const closeOverlay = fragment.querySelector(".overlay__close");
     fragment = null;
 
-    document.addEventListener("click", e => {
+    document.addEventListener("click", (e) => {
       if (e.target.id === "open-popup") {
         e.preventDefault();
 
         this.openOverlay(e.target.dataset.coords.split(",")); // openOverlay
-        contentElement.innerHTML = "Загружаю...";
+        contentElement.innerHTML = "Loading...";
         setPosition(e, overlayElement); // setPosition
       }
     });
@@ -200,23 +200,23 @@ export default class {
       },
       setContent(content, coords) {
         if (content === undefined || content === "") {
-          titleElement.innerHTML = "Неизвестное место...";
+          titleElement.innerHTML = "Unknown place...";
         } else {
           titleElement.innerHTML = content;
         }
         if (coords !== undefined) {
           titleElement.dataset.coords = coords;
         }
-      }
+      },
     };
   }
 
   openOverlay(coords) {
     this.map.balloon.close();
     this.overlay.open({});
-    this.overlay.setContent("Поиск...", coords);
+    this.overlay.setContent("Searching...", coords);
 
-    this.getAddress(coords).then(res => {
+    this.getAddress(coords).then((res) => {
       this.overlay.setContent(res);
       this.getCommentsOnAddress(res);
     });

@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const config = require("./config");
+
+// require routes
 const addComment = require("./api/routes/add");
 const getComment = require("./api/routes/get");
 
@@ -15,12 +17,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "./public")));
 
+// use routes
 app.use("/add", addComment);
 app.use("/get", getComment);
 
 app.get("/", function (req, res) {
   res.render(path.join(__dirname, "/views/pages/index"), {
-    title: "Geo Reviews"
+    title: "Geo Reviews",
   });
 });
 

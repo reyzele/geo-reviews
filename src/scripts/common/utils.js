@@ -46,25 +46,33 @@ function resizeHendler() {
   }
 }
 
-const dragAndDrop = element => e => {
-  const coords = getCoords(element);
-  const shiftX = e.pageX - coords.left;
-  const shiftY = e.pageY - coords.top;
+const dragAndDrop = (element) => (event) => {
+  const target = event.target;
+  const parent = target.parentNode;
 
-  document.onmousemove = e => {
-    element.style.left = e.pageX - shiftX + "px";
-    element.style.top = e.pageY - shiftY + "px";
-  };
+  if (
+    parent.classList.contains("overlay__contents") ||
+    target.classList.contains("overlay__footer")
+  ) {
+    const coords = getCoords(element);
+    const shiftX = event.pageX - coords.left;
+    const shiftY = event.pageY - coords.top;
 
-  element.onmouseup = () => (document.onmousemove = null);
+    document.onmousemove = (e) => {
+      element.style.left = e.pageX - shiftX + "px";
+      element.style.top = e.pageY - shiftY + "px";
+    };
+
+    element.onmouseup = () => (document.onmousemove = null);
+  }
 };
 
 function getCoords(elem) {
   const elemCoords = elem.getBoundingClientRect();
 
   return {
-    top: elemCoords.top + pageYOffset,
-    left: elemCoords.left + pageXOffset
+    top: elemCoords.top,
+    left: elemCoords.left,
   };
 }
 

@@ -1,7 +1,0 @@
-ul#commentsList
-  each val in comments
-    li.commentsItem
-      span.name= val['name'] 
-      span.place= ' ' + val['place']
-      span.date= ' ' + moment(val['date']).format('DD.MM.YYYY hh:mm:ss')
-      .text= val['text']
