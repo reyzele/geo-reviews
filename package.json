@@ -45,7 +45,7 @@
     "express": "^4.16.3",
     "moment": "^2.22.0",
     "mongoose": "^5.0.12",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "normalize.css": "^7.0.0",
     "pug": "^2.0.3",
     "ymaps": "^0.2.1"
